@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import NotFoundPage from "./NotFound/NotFoundPage";
+import { HashRouter, Route } from "react-router-dom";
 
-function App(): JSX.Element {
+function TopPage(): JSX.Element {
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -23,24 +25,16 @@ function App(): JSX.Element {
 	);
 }
 
-/**
- * 404 pageを出力するための記述
- * 1. ./package.jsonのscriptに
- * 		"postbuild": "cp build/index.html build/404.html",
- * 		を記述、上のApp部分をコメントアウトしてyarn buildを実行して404.htmlを生成
- * 2. 404.htmlを生成後、"postbuild"の部分を消去、下のApp部分をコメントアウトした後に再度yarn buildし、index.htmlを生成
- * 3. 404.html, index.htmlを生成した後に
- * 		gh-pages -b gh-page -d build
- * 		を実行
- */
-// import NotFoundPage from "./NotFound/NotFoundPage";
-
-// function App(): JSX.Element {
-// 	return (
-// 		<div className="App">
-// 			<NotFoundPage />
-// 		</div>
-// 	);
-// }
+function App(): JSX.Element {
+	return (
+		<div className="App">
+			<HashRouter basename={process.env.PUBLIC_URL}>
+				<Route path="/" exact component={TopPage} />
+				{/* "URL/#/~"のようなページを踏むと自作の404ページに移動 */}
+				<Route component={NotFoundPage} />
+			</HashRouter>
+		</div>
+	);
+}
 
 export default App;

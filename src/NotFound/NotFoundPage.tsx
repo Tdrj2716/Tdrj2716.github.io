@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
-import beachImage from "./monochrome-beach.jpeg";
 import styled from "styled-components";
 
 const homeUrl = "https://tdrj2716.github.io";
@@ -41,7 +40,8 @@ const StyledButton = styled.button`
 const StyledBox = styled(Box)`
 	width: 100%;
 	height: 100vh;
-	background-image: url(${beachImage});
+	/* 生成した404 pageが参照出来るよう、ビルド時に変更されないpublicディレクトリに背景画像を退避させておく */
+	background-image: url(${process.env.PUBLIC_URL + "/monochrome-beach.jpeg"});
 	background-size: cover;
 	background-position: center;
 `;
